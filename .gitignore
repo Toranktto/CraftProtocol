@@ -1,0 +1,6 @@
+*.pyc
+dist/*
+MANIFEST
+.idea/*
+docs/build/*
+pylint.log
