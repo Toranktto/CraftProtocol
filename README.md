@@ -2,7 +2,6 @@
 
 Open source partial implementation of [Minecraft network protocol](http://wiki.vg/Protocol)
 and [NBT](http://wiki.vg/NBT) in Python 2.7.
-**Not ready for production**. Some features may not work.
 
 ## Installation
 

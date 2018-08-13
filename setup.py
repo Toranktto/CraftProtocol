@@ -36,7 +36,7 @@ setup(
     version=VersionConstants.VERSION,
     description="Minecraft network protocol and NBT in Python 2.7.",
     author="Toranktto",
-    url="https://toranktto.pl",
+    url="https://github.com/Toranktto/CraftProtocol",
     license="MIT",
     author_email="toranktto@gmail.com",
     classifiers=[
