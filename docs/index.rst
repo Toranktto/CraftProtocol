@@ -399,21 +399,15 @@ World Objects
     :param world_type: world type
     :param dimension: world dimension
     :param difficulty: world difficulty
-    :type world_type: basestring enum
+    :type world_type: CraftProtocol.World.WorldType basestring enum
     :type dimension: CraftProtocol.World.WorldDimension int enum
     :type difficulty: CraftProtocol.World.WorldDifficulty int enum
-
-    .. note::
-        Currently there is no class that has world type enum defined.
 
     .. method:: get_world_type()
 
         Return world type.
 
-        :rtype: unicode enum
-
-        .. note::
-            Currently there is no class that has this enum defined.
+        :rtype: CraftProtocol.World.WorldType unicode enum
 
     .. method:: get_dimension()
 
@@ -518,11 +512,57 @@ World Objects
 
     .. attribute:: OVERWORLD
 
-        Represent Overworld dimension.
+        Represent natural dimension.
 
     .. attribute:: END
 
         Represent The End dimension.
+
+.. class:: CraftProtocol.World.WorldDifficulty
+
+    .. note::
+        This class is used to enum purposes only. You don't have to create new instances.
+
+    .. attribute:: PEACEFUL
+
+        Represent easiest difficulty.
+
+    .. attribute:: EASY
+
+        Represent easy difficulty.
+
+    .. attribute:: NORMAL
+
+        Represent normal difficulty.
+
+    .. attribute:: HARD
+
+        Represent hard difficulty.
+
+.. class:: CraftProtocol.World.WorldType
+
+    .. note::
+        This class is used to enum purposes only. You don't have to create new instances.
+
+    .. attribute:: DEFAULT
+
+        Represent default map type.
+
+    .. attribute:: FLAT
+
+        Represent super flat map type.
+
+    .. attribute:: LARGE_BIOMES
+
+        Represent map type with large biomes.
+
+    .. attribute:: AMPLIFIED
+
+        Represent amplified map type.
+
+    .. attribute:: DEFAULT_1_1
+
+        Represent legacy map type.
 
 Protocol Objects
 ----------------

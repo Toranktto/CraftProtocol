@@ -2,8 +2,8 @@
 
 
 class WorldType(object):
-    DEFAULT = "default"
-    FLAT = "flat"
-    LARGE_BIOMES = "largeBiomes"
-    AMPLIFIED = "amplified"
-    DEFAULT_1_1 = "default_1_1"
+    DEFAULT = u"default"
+    FLAT = u"flat"
+    LARGE_BIOMES = u"largeBiomes"
+    AMPLIFIED = u"amplified"
+    DEFAULT_1_1 = u"default_1_1"
