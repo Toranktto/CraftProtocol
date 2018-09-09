@@ -401,10 +401,10 @@ World Objects
     :param difficulty: world difficulty
     :type world_type: basestring enum
     :type dimension: CraftProtocol.World.WorldDimension int enum
-    :type difficulty: int enum
+    :type difficulty: CraftProtocol.World.WorldDifficulty int enum
 
     .. note::
-        Currently there is no class that has World Type or Difficulty enums defined.
+        Currently there is no class that has world type enum defined.
 
     .. method:: get_world_type()
 
@@ -425,10 +425,7 @@ World Objects
 
         Return world difficulty.
 
-        :rtype: int enum
-
-        .. note::
-            Currently there is no class that has this enum defined.
+        :rtype: CraftProtocol.World.WorldDifficulty int enum
 
 .. class:: CraftProtocol.World.Location(x, y, z, yaw=0.00, pitch=0.00)
 
