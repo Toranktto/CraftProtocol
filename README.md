@@ -16,8 +16,8 @@ $ pip install --user CraftProtocol
 
 ## Documentation
 
-Documentation is available [here](https://craftprotocol.readthedocs.io).
+Documentation is available [here](https://CraftProtocol.readthedocs.io).
 
 ## License
 
-This project is licensed under the MIT License. See LICENSE file for details.
+This project is licensed under the MIT License. See [LICENSE](LICENSE) file for details.

@@ -24,10 +24,10 @@ Creating in-memory NBT tags:
 
     tag = NBT.NBTTagCompound()
     tag["example_int_list_key"] = NBT.NBTTagList(NBT.NBTTagByte)
-    tag["example_int_list_key"].append(0xFF)
-    tag["example_int_list_key"].append(0x00)
-    tag["example_string_key"] = NBT.NBTTagString("value")
-    tag["example_double_key"] = NBT.NBTTagDouble(69.69)
+    tag["example_int_list_key"].append(NBT.NBTTagByte(0x00))
+    tag["example_int_list_key"].append(NBT.NBTTagByte(0x0F))
+    tag["example_string_key"] = NBT.NBTTagString("string")
+    tag["example_double_key"] = NBT.NBTTagDouble(120.1351)
 
 .. warning::
     You can't assign a native python value to NBTTagCompound key.
@@ -150,8 +150,12 @@ To deserialize packets from stream (e.g. from socket object):
     Different protocols may have different packets. See http://wiki.vg for details.
 
 .. warning::
-    Some packets is not implemented in CraftProtocol (only ``Play`` protocol state).
+    Some packets is not implemented in CraftProtocol (only in ``Play`` protocol state).
     If you want to know list of implemented packets, see source code.
+
+.. warning::
+    You must manually change serializer protocol state if necessary. Default state is ``Handshaking``.
+    For example, in ``Server List Ping`` after sending Handshake packet state must be switched to ``Status``.
 
 .. note::
     Valid packet must inherits from ``CraftProtocol.Protocol.Packet.BasePacket`` class.
@@ -197,7 +201,7 @@ Chat Objects
 
     .. attribute:: COMMANDS
 
-        In this mode, only commands can be send to server (**in theory**).
+        In this mode, only commands can be send to server.
 
 .. class:: CraftProtocol.Chat.ChatSerializer
 
@@ -228,7 +232,7 @@ Inventory Objects
     :param title: inventory title in chat format
     :param inventory_type: inventory type
     :param slots_number: number of items in inventory
-    :param entity_id: only used if Inventory Type is ``EntityHorse``.
+    :param entity_id: only used if inventory type is ``EntityHorse``.
     :type window_id: int
     :type title: dict
     :type inventory_type: basestring enum
@@ -236,7 +240,7 @@ Inventory Objects
     :type entity_id: int
 
     .. note::
-        Currently there is no class that has Inventory Type enum defined.
+        Currently there is no class that has inventory type enum defined.
 
     .. method:: get_window_id()
 
@@ -330,9 +334,15 @@ Inventory Objects
     :type damage: int
     :type tag: CraftProtocol.NBT.NBTTagCompound or None
 
+    .. staticmethod:: empty()
+
+        Return empty slot.
+
+        :rtype: CraftProtocol.Inventory.SlotData
+
     .. method:: get_id()
 
-        Return item id.
+        Return slot item id.
 
         :rtype: int
 
@@ -351,13 +361,13 @@ Inventory Objects
 
     .. method:: get_damage()
 
-        Return item variant.
+        Return slot item variant.
 
         :rtype: int
 
     .. method:: set_damage(damage)
 
-        Set item variant.
+        Set slot item variant.
 
         :param damage: item variant
         :type damage: int
