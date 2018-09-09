@@ -9,7 +9,7 @@ class Inventory(object):
         self._window_id = int(window_id)
         self._title = title
         self._type = unicode(inventory_type)
-        self._slots = [SlotData(-1)] * int(slots_number)
+        self._slots = [SlotData.empty()] * int(slots_number)
 
         if entity_id is not None:
             entity_id = int(entity_id)

@@ -9,6 +9,10 @@ class SlotData(object):
         self._damage = int(damage)
         self._tag = tag
 
+    @staticmethod
+    def empty():
+        return SlotData(-1)
+
     def is_empty(self):
         return self._id == -1
 

@@ -2,7 +2,7 @@
 
 __all__ = [
     "Location",
-    "WorldDimension"
+    "WorldDimension",
 ]
 
 from CraftProtocol.World.Location import Location

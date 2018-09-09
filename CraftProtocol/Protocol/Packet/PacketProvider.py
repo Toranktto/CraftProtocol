@@ -35,6 +35,6 @@ class PacketProvider(object):
             }
 
         if packet_id in PacketProvider._PACKETS[protocol][state][direction]:
-            raise ValueError("This id is already registered")
+            raise ValueError("this id is already registered")
 
         PacketProvider._PACKETS[protocol][state][direction][packet_id] = cls

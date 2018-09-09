@@ -11,6 +11,6 @@ class NBTProvider(object):
     @staticmethod
     def register(type_id, cls):
         if type_id in NBTProvider._TAGS:
-            raise ValueError("This id is already registered")
+            raise ValueError("this id is already registered")
 
         NBTProvider._TAGS[type_id] = cls

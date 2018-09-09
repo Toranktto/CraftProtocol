@@ -4,4 +4,3 @@ MANIFEST
 .idea/
 docs/build/
 build/
-pylint.log
