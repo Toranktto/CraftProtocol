@@ -8,6 +8,6 @@ __all__ = [
 ]
 
 from CraftProtocol.World.Location import Location
-from CraftProtocol.World.WorldDimension import WorldDimension
 from CraftProtocol.World.WorldDifficulty import WorldDifficulty
+from CraftProtocol.World.WorldDimension import WorldDimension
 from CraftProtocol.World.WorldType import WorldType
