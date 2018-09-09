@@ -27,9 +27,9 @@ class NBTTagList(NBTBase):
         return self._values.__getitem__(i)
 
     def __setitem__(self, i, o):
-        assert isinstance(o, self._tag_type), "object arg must be " + self._tag_type.__name__
+        assert isinstance(o, self._tag_type), "value must be " + self._tag_type.__name__
 
-        self._values._setitem__(i, o)
+        self._values.__setitem__(i, o)
 
     def __delitem__(self, i):
         self._values.__delitem__(i)
@@ -44,12 +44,12 @@ class NBTTagList(NBTBase):
         return self._values.__len__()
 
     def append(self, x):
-        assert isinstance(x, self._tag_type), "x arg must be " + self._tag_type.__name__
+        assert isinstance(x, self._tag_type), "arg must be " + self._tag_type.__name__
 
         self._values.append(x)
 
     def remove(self, x):
-        assert isinstance(x, self._tag_type), "x arg must be " + self._tag_type.__name__
+        assert isinstance(x, self._tag_type), "arg must be " + self._tag_type.__name__
 
         self._values.remove(x)
 

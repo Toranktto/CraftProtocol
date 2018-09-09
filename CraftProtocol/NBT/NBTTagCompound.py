@@ -24,7 +24,7 @@ class NBTTagCompound(NBTBase):
         return self._values.__getitem__(k)
 
     def __setitem__(self, k, v):
-        assert isinstance(v, NBTBase), "value arg must be NBTBase"
+        assert isinstance(v, NBTBase), "value must be NBTBase"
 
         self._values.__setitem__(k, v)
 

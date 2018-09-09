@@ -1,6 +1,7 @@
 *.pyc
-dist/*
+dist/
 MANIFEST
-.idea/*
-docs/build/*
+.idea/
+docs/build/
+build/
 pylint.log

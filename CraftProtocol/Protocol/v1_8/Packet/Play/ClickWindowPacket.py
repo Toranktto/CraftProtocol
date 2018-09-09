@@ -62,9 +62,9 @@ class ClickWindowPacket(BasePacket):
         StreamIO.write_short(stream, packet.get_slot())
         StreamIO.write_byte(stream, packet.get_button())
         StreamIO.write_short(stream, packet.get_transaction_id())
-        StreamIO.write_varint(stream, packet.get_mode())
+        StreamIO.write_byte(stream, packet.get_mode())
         StreamIO.write_short(stream, packet.get_slot_data().get_id())
-        if packet.get_itemstack().get_id() != -1:
+        if not packet.get_slot_data().is_empty():
             StreamIO.write_byte(stream, packet.get_slot_data().get_count())
             StreamIO.write_short(stream, packet.get_slot_data().get_damage())
             NBTSerializer.write(stream, packet.get_slot_data().get_tag())
@@ -75,9 +75,9 @@ class ClickWindowPacket(BasePacket):
         slot = StreamIO.read_short(stream)
         button = StreamIO.read_byte(stream)
         transaction_id = StreamIO.read_short(stream)
-        mode = StreamIO.read_varint(stream)
+        mode = StreamIO.read_byte(stream)
         slot_data = SlotData(StreamIO.read_short(stream))
-        if slot_data.get_id() != -1:
+        if not slot_data.is_empty():
             slot_data.set_count(StreamIO.read_byte(stream))
             slot_data.set_damage(StreamIO.read_short(stream))
             slot_data.set_tag(NBTSerializer.read(stream))

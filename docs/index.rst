@@ -127,12 +127,11 @@ If you want to serialize packets, use:
     from CraftProtocol.Protocol import ProtocolVersion
     from CraftProtocol.Protocol import Packet
 
-    serializer = Packet.PacketSerializer(ProtocolVersion.MC_1_10, Packet.PacketDirection.SERVERBOUND)
+    serializer = CraftProtocol.Protocol.Packet.PacketSerializer(
+        CraftProtocol.Protocol.ProtocolVersion.MC_1_10,
+        CraftProtocol.Protocol.Packet.PacketSerializer.Mode.CLIENT
+    )
     serializer.write(stream, packet)
-
-.. note::
-    ``Packet.PacketDirection.SERVERBOUND`` means that PacketSerializer sends packet to server ("client mode").
-    To use "server mode" use ``Packet.PacketDirection.CLIENTBOUND``.
 
 To deserialize packets from stream (e.g. from socket object):
 
@@ -141,15 +140,17 @@ To deserialize packets from stream (e.g. from socket object):
     from CraftProtocol.Protocol import ProtocolVersion
     from CraftProtocol.Protocol import Packet
 
-    serializer = Packet.PacketSerializer(ProtocolVersion.MC_1_10, Packet.PacketDirection.CLIENTBOUND)
+    serializer = CraftProtocol.Protocol.Packet.PacketSerializer(
+        CraftProtocol.Protocol.ProtocolVersion.MC_1_10,
+        CraftProtocol.Protocol.Packet.PacketSerializer.Mode.CLIENT
+    )
     packet = serializer.read(stream)
 
 .. warning::
-    Different protocols may have different packets, don't have some packets from newer/older protocols or
-    have packets that no longer exists in newer protocols. See http://wiki.vg for details.
+    Different protocols may have different packets. See http://wiki.vg for details.
 
 .. warning::
-    Some packets may be not implemented in CraftProtocol (only ``Play`` protocol state).
+    Some packets is not implemented in CraftProtocol (only ``Play`` protocol state).
     If you want to know list of implemented packets, see source code.
 
 .. note::
@@ -265,7 +266,7 @@ Inventory Objects
 
         Return items in this inventory.
 
-        :rtype: list (CraftProtocol.Inventory.ItemStack)
+        :rtype: list (CraftProtocol.Inventory.SlotData)
 
     .. method:: get_entity_id()
 
@@ -282,7 +283,7 @@ Inventory Objects
 
         :param index: index
         :type index: int
-        :rtype: CraftProtocol.Inventory.ItemStack
+        :rtype: CraftProtocol.Inventory.SlotData
 
     .. method:: __setitem__(index, value)
 
@@ -291,7 +292,7 @@ Inventory Objects
         :param index: index
         :param value: itemstack
         :type index: int
-        :type value: CraftProtocol.Inventory.ItemStack
+        :type value: CraftProtocol.Inventory.SlotData
 
     .. method:: __delitem__(index)
 
@@ -318,7 +319,7 @@ Inventory Objects
 
         :rtype: CraftProtocol.Inventory.Inventory
 
-.. class:: CraftProtocol.Inventory.ItemStack(item_id, count=0, damage=0, tag=None)
+.. class:: CraftProtocol.Inventory.SlotData(item_id, count=0, damage=0, tag=None)
 
     :param item_id: item id
     :param count: item count
@@ -337,13 +338,13 @@ Inventory Objects
 
     .. method:: get_count()
 
-        Return number of items in this stack.
+        Return number of items in this slot.
 
         :rtype: int
 
     .. method:: set_count(count)
 
-        Set number of items in this stack.
+        Set number of items in this slot.
 
         :param count: items count
         :type count: int
@@ -363,20 +364,20 @@ Inventory Objects
 
     .. method:: get_tag()
 
-        Return NBT Tag of this stack.
+        Return NBT Tag of this slot.
 
         :rtype: CraftProtocol.NBT.NBTTagCompound or None
 
     .. method:: set_tag(tag)
 
-        Set NBT Tag of this stack.
+        Set NBT Tag of this slot.
 
         :param tag: NBT Tag
         :type tag: CraftProtocol.NBT.NBTTagCompound or None
 
     .. method:: has_tag()
 
-        Return ``True`` if stack has NBT Tag.
+        Return ``True`` if slot has NBT Tag.
 
         :rtype: bool
 

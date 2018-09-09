@@ -12,8 +12,8 @@ class NBTBase(object):
 
     @staticmethod
     def write(stream, tag):
-        pass
+        raise NotImplementedError()
 
     @staticmethod
     def read(stream):
-        return NBTBase()
+        raise NotImplementedError()

@@ -61,7 +61,7 @@ class PlayerBlockPlacementPacket(BasePacket):
         StreamIO.write_position(stream, packet.get_position())
         StreamIO.write_byte(stream, packet.get_face())
         StreamIO.write_short(stream, packet.get_slot_data().get_id())
-        if packet.get_slot_data().is_empty():
+        if not packet.get_slot_data().is_empty():
             StreamIO.write_byte(stream, packet.get_slot_data().get_count())
             StreamIO.write_short(stream, packet.get_slot_data().get_damage())
             NBTSerializer.write(stream, packet.get_slot_data().get_tag())
@@ -74,7 +74,7 @@ class PlayerBlockPlacementPacket(BasePacket):
         position = StreamIO.read_position(stream)
         face = StreamIO.read_byte(stream)
         slot_data = SlotData(StreamIO.read_short(stream))
-        if slot_data.is_empty():
+        if not slot_data.is_empty():
             slot_data.set_count(StreamIO.read_byte(stream))
             slot_data.set_damage(StreamIO.read_short(stream))
             slot_data.set_tag(NBTSerializer.read(stream))

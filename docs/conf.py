@@ -12,8 +12,8 @@ from CraftProtocol import VersionConstants
 source_suffix = ".rst"
 master_doc = "index"
 project = u"CraftProtocol"
-copyright = u"2018-%s, Toranktto" % (time.strftime("%Y"))
-author = u"Toranktto (Łukasz Derlatka)"
+copyright = u"2018-%s, Łukasz Derlatka" % (time.strftime("%Y"))
+author = u"Toranktto"
 version = VersionConstants.VERSION
 release = VersionConstants.VERSION
 language = None

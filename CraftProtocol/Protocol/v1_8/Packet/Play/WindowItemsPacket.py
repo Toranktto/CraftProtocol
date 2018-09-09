@@ -35,7 +35,7 @@ class WindowItemsPacket(BasePacket):
 
         for slot_data in packet.get_slots():
             StreamIO.write_short(stream, slot_data.get_id())
-            if slot_data.is_empty():
+            if not slot_data.is_empty():
                 StreamIO.write_byte(stream, slot_data.get_count())
                 StreamIO.write_short(stream, slot_data.get_damage())
                 NBTSerializer.write(stream, slot_data.get_tag())

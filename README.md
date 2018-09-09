@@ -6,13 +6,7 @@ and [NBT](http://wiki.vg/NBT) in Python 2.7.
 ## Installation
 
 ```
-$ make install
-```
-
-## Building package
-
-```
-$ make build
+$ pip install --user CraftProtocol
 ```
 
 ## Supported Minecraft releases
@@ -22,7 +16,7 @@ $ make build
 
 ## Documentation
 
-Documentation is available in docs/ directory.
+Documentation is available [here](https://craftprotocol.readthedocs.io).
 
 ## License
 

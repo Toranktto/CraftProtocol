@@ -94,6 +94,7 @@ class PacketSerializer(object):
         packet_id = StreamIO.read_varint(buf)
         packet_size -= StreamIO.size_varint(packet_id)
 
+        packet_direction = None
         if self._mode == PacketSerializer.Mode.SERVER:
             packet_direction = PacketDirection.SERVERBOUND
         elif self._mode == PacketSerializer.Mode.CLIENT:

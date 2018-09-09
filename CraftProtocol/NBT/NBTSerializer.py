@@ -13,7 +13,7 @@ class NBTSerializer(object):
             return None
 
         if compound_id != NBTTagCompound.TYPE_ID:
-            raise IOError("Invalid NBTTagCompound type ID = " + hex(compound_id))
+            raise IOError("invalid magic number")
 
         name_len = StreamIO.read_ushort(stream)
         name = u""
