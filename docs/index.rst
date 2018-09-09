@@ -16,7 +16,7 @@ This module provide high level interface for handling Named Binary Tags (NBT) an
 Named Binary Tags (NBT)
 -----------------------
 
-Creating in-memory NBT Tags:
+Creating in-memory NBT tags:
 
 .. code-block:: python
 
@@ -68,7 +68,7 @@ Creating in-memory NBT Tags:
     Remember that NBT Types with "Array" suffix can store only one NBT Type which is prefixed
     and NBTTagList can store only one choosed by user (in constructor) NBT Type.
 
-To serialize NBT Tag to stream (file-like or socket object):
+To serialize NBT tag to stream (file-like or socket object):
 
 .. code-block:: python
 
@@ -85,7 +85,7 @@ or deserialize from stream:
     tag = NBTSerializer.read(stream)
 
 .. note::
-    NBTSerializer does not support compression. If you want to handle compressed NBT Tags, use
+    NBTSerializer does not support compression. If you want to handle compressed NBT tags, use
     appropriate module for this, for example ``gzip``.
 
 To convert NBT Value to Python Value:
@@ -290,7 +290,7 @@ Inventory Objects
         Set item at specified index.
 
         :param index: index
-        :param value: itemstack
+        :param value: slot data
         :type index: int
         :type value: CraftProtocol.Inventory.SlotData
 
@@ -324,7 +324,7 @@ Inventory Objects
     :param item_id: item id
     :param count: item count
     :param damage: item variant
-    :param tag: item NBT Tag
+    :param tag: item NBT tag
     :type item_id: int
     :type count: int
     :type damage: int
@@ -364,20 +364,20 @@ Inventory Objects
 
     .. method:: get_tag()
 
-        Return NBT Tag of this slot.
+        Return NBT tag of this slot.
 
         :rtype: CraftProtocol.NBT.NBTTagCompound or None
 
     .. method:: set_tag(tag)
 
-        Set NBT Tag of this slot.
+        Set NBT tag of this slot.
 
-        :param tag: NBT Tag
+        :param tag: NBT tag
         :type tag: CraftProtocol.NBT.NBTTagCompound or None
 
     .. method:: has_tag()
 
-        Return ``True`` if slot has NBT Tag.
+        Return ``True`` if slot has NBT tag.
 
         :rtype: bool
 
