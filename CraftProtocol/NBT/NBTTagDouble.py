@@ -9,10 +9,10 @@ class NBTTagDouble(NBTBase):
 
     def __init__(self, value):
         NBTBase.__init__(self)
-        self._value = float(value)
+        self.__value = float(value)
 
     def get(self):
-        return self._value
+        return self.__value
 
     @staticmethod
     def write(stream, tag):

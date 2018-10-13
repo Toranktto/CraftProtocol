@@ -16,35 +16,41 @@ class PacketSerializer(object):
         SERVER = 1
 
     def __init__(self, protocol, mode):
-        self._protocol = int(protocol)
-        self._mode = int(mode)
-        self._state = ProtocolState.HANDSHAKING
-        self._threshold = -1
-
-    def set_threshold(self, value):
-        self._threshold = int(value)
+        self.__protocol = int(protocol)
+        self.__mode = int(mode)
+        self.__state = ProtocolState.HANDSHAKING
+        self.__threshold = -1
 
     def is_compression_enabled(self):
-        return self._threshold >= 0
+        return self.threshold >= 0
 
-    def get_threshold(self):
-        return self._threshold
+    @property
+    def threshold(self):
+        return self.__threshold
 
-    def get_protocol(self):
-        return self._protocol
+    @threshold.setter
+    def threshold(self, value):
+        self.__threshold = int(value)
 
-    def get_mode(self):
-        return self._mode
+    @property
+    def protocol(self):
+        return self.__protocol
 
-    def set_state(self, state):
-        self._state = int(state)
+    @property
+    def mode(self):
+        return self.__mode
 
-    def get_state(self):
-        return self._state
+    @property
+    def state(self):
+        return self.__state
+
+    @state.setter
+    def state(self, state):
+        self.__state = int(state)
 
     def write(self, stream, packet):
         assert packet.__class__.PACKET_DIRECTION == PacketDirection.SERVERBOUND \
-            if self._mode == PacketSerializer.Mode.CLIENT else \
+            if self.__mode == PacketSerializer.Mode.CLIENT else \
             packet.__class__.PACKET_DIRECTION == PacketDirection.CLIENTBOUND, \
             "packet has invalid direction for this serializer"
 
@@ -57,7 +63,7 @@ class PacketSerializer(object):
         if self.is_compression_enabled():
             buf = StringIO()
 
-            if len(data) >= self.get_threshold():
+            if len(data) >= self.threshold:
                 StreamIO.write_varint(buf, len(data))
                 data = zlib.compress(data)
             else:
@@ -95,16 +101,15 @@ class PacketSerializer(object):
         packet_size -= StreamIO.size_varint(packet_id)
 
         packet_direction = None
-        if self._mode == PacketSerializer.Mode.SERVER:
+        if self.__mode == PacketSerializer.Mode.SERVER:
             packet_direction = PacketDirection.SERVERBOUND
-        elif self._mode == PacketSerializer.Mode.CLIENT:
+        elif self.__mode == PacketSerializer.Mode.CLIENT:
             packet_direction = PacketDirection.CLIENTBOUND
 
         try:
-            packet_class = PacketProvider.get_packet_class(self._protocol, self._state, packet_direction, packet_id)
+            packet_class = PacketProvider.get_packet_class(self.__protocol, self.__state, packet_direction, packet_id)
         except KeyError:
-            buf.close()
-            return BasePacket()  # Unknown packet
+            packet_class = BasePacket.__class__
 
         packet = packet_class.read(buf, packet_size)
         buf.close()

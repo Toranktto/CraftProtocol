@@ -4,38 +4,45 @@
 class SlotData(object):
 
     def __init__(self, item_id, count=0, damage=0, tag=None):
-        self._id = int(item_id)
-        self._count = int(count)
-        self._damage = int(damage)
-        self._tag = tag
+        self.__id = int(item_id)
+        self.__count = int(count)
+        self.__damage = int(damage)
+        self.__tag = tag
 
     @staticmethod
     def empty():
         return SlotData(-1)
 
     def is_empty(self):
-        return self._id == -1
+        return self.id == -1
 
-    def get_id(self):
-        return self._id
+    @property
+    def id(self):
+        return self.__id
 
-    def get_count(self):
-        return self._count
+    @property
+    def count(self):
+        return self.__count
 
-    def set_count(self, count):
-        self._count = int(count)
+    @count.setter
+    def count(self, count):
+        self.__count = int(count)
 
-    def get_damage(self):
-        return self._damage
+    @property
+    def damage(self):
+        return self.__damage
 
-    def set_damage(self, damage):
-        self._damage = int(damage)
+    @damage.setter
+    def damage(self, damage):
+        self.__damage = int(damage)
 
-    def get_tag(self):
-        return self._tag
+    @property
+    def tag(self):
+        return self.__tag
 
-    def set_tag(self, tag):
-        self._tag = tag
+    @tag.setter
+    def tag(self, tag):
+        self.__tag = tag
 
     def has_tag(self):
-        return self._tag is not None
+        return self.__tag is not None

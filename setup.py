@@ -1,28 +1,15 @@
 #!/usr/bin/env python
 
-from distutils.core import setup
-from pkgutil import walk_packages
-
-import CraftProtocol
-
-
-def find_packages(path, prefix):
-    packages = [prefix]
-
-    prefix = prefix + "."
-    for _, name, is_pkg in walk_packages(path, prefix):
-        if is_pkg:
-            packages.append(name)
-
-    return packages
-
+from setuptools import setup, find_packages
 
 setup(
     name="CraftProtocol",
-    packages=find_packages(CraftProtocol.__path__, CraftProtocol.__name__),
-    version=CraftProtocol.VersionConstants.VERSION,
+    packages=find_packages(exclude=["tests"]),
+    version=__import__("CraftProtocol").get_version(),
     description="Minecraft network protocol and NBT in Python 2.7.",
+    long_description=open("README.md").read(),
     author="Toranktto",
+    test_suite="tests",
     url="https://github.com/Toranktto/CraftProtocol",
     license="MIT",
     author_email="toranktto@gmail.com",

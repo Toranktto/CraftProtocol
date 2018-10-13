@@ -11,57 +11,69 @@ class ClientSettingsPacket(BasePacket):
 
     def __init__(self, locale, view_distance, chat_mode, chat_colors, skin_parts, main_hand):
         BasePacket.__init__(self)
-        self._locale = unicode(locale)
-        self._view_distance = int(view_distance)
-        self._chat_mode = int(chat_colors)
-        self._chat_colors = bool(chat_colors)
-        self._skin_parts = int(skin_parts)
-        self._main_hand = int(main_hand)
+        self.__locale = unicode(locale)
+        self.__view_distance = int(view_distance)
+        self.__chat_mode = int(chat_colors)
+        self.__chat_colors = bool(chat_mode)
+        self.__skin_parts = int(skin_parts)
+        self.__main_hand = int(main_hand)
 
-    def get_locale(self):
-        return self._locale
+    @property
+    def locale(self):
+        return self.__locale
 
-    def set_locale(self, locale):
-        self._locale = unicode(locale)
+    @locale.setter
+    def locale(self, locale):
+        self.__locale = unicode(locale)
 
-    def get_view_distance(self):
-        return self._view_distance
+    @property
+    def view_distance(self):
+        return self.__view_distance
 
-    def set_view_distance(self, view_distance):
-        self._view_distance = int(view_distance)
+    @view_distance.setter
+    def view_distance(self, view_distance):
+        self.__view_distance = int(view_distance)
 
-    def get_chat_mode(self):
-        return self._chat_mode
+    @property
+    def chat_mode(self):
+        return self.__chat_mode
 
-    def set_chat_mode(self, chat_mode):
-        self._chat_mode = int(chat_mode)
+    @chat_mode.setter
+    def chat_mode(self, chat_mode):
+        self.__chat_mode = int(chat_mode)
 
-    def is_chat_colors(self):
-        return self._chat_colors
+    @property
+    def chat_colors(self):
+        return self.__chat_colors
 
-    def set_chat_colors(self, chat_colors):
-        self._chat_colors = bool(chat_colors)
+    @chat_colors.setter
+    def chat_colors(self, chat_colors):
+        self.__chat_colors = bool(chat_colors)
 
-    def get_skin_parts(self):
-        return self._skin_parts
+    @property
+    def skin_parts(self):
+        return self.__skin_parts
 
-    def set_skin_parts(self, skin_parts):
-        self._skin_parts = int(skin_parts)
+    @skin_parts.setter
+    def skin_parts(self, skin_parts):
+        self.__skin_parts = int(skin_parts)
 
-    def get_main_hand(self):
-        return self._main_hand
+    @property
+    def main_hand(self):
+        return self.__main_hand
 
-    def set_main_hand(self, main_hand):
-        self._main_hand = int(main_hand)
+    @main_hand.setter
+    def main_hand(self, main_hand):
+        self.__main_hand = int(main_hand)
 
     @staticmethod
     def write(stream, packet):
-        StreamIO.write_string(stream, packet.get_locale())
-        StreamIO.write_byte(stream, packet.get_view_distance())
-        StreamIO.write_varint(stream, packet.get_chat_mode())
-        StreamIO.write_bool(stream, packet.is_chat_colors())
-        StreamIO.write_ubyte(stream, packet.get_skin_parts())
-        StreamIO.write_varint(stream, packet.get_main_hand())
+        StreamIO.write_string(stream, packet.locale)
+        StreamIO.write_byte(stream, packet.view_distance)
+        StreamIO.write_varint(stream, packet.chat_mode)
+        StreamIO.write_bool(stream, packet.chat_colors)
+        StreamIO.write_ubyte(stream, packet.skin_parts)
+        StreamIO.write_varint(stream, packet.main_hand)
 
     @staticmethod
     def read(stream, packet_size):

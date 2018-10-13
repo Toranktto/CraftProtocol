@@ -13,32 +13,36 @@ class WindowItemsPacket(BasePacket):
 
     def __init__(self, window_id, slots):
         BasePacket.__init__(self)
-        self._window_id = int(window_id)
-        self._slots = slots
+        self.__window_id = int(window_id)
+        self.__slots = slots
 
-    def get_window_id(self):
-        return self._window_id
+    @property
+    def window_id(self):
+        return self.__window_id
 
-    def set_window_id(self, window_id):
-        self._window_id = int(window_id)
+    @window_id.setter
+    def window_id(self, window_id):
+        self.__window_id = int(window_id)
 
-    def get_slots(self):
-        return self._slots
+    @property
+    def slots(self):
+        return self.__slots
 
-    def set_slots(self, slots):
-        self._slots = slots
+    @slots.setter
+    def slots(self, slots):
+        self.__slots = slots
 
     @staticmethod
     def write(stream, packet):
-        StreamIO.write_ubyte(stream, packet.get_window_id())
-        StreamIO.write_short(stream, len(packet.get_slots()))
+        StreamIO.write_ubyte(stream, packet.window_id)
+        StreamIO.write_short(stream, len(packet.slots))
 
-        for slot_data in packet.get_slots():
-            StreamIO.write_short(stream, slot_data.get_id())
-            if not slot_data.is_empty():
-                StreamIO.write_byte(stream, slot_data.get_count())
-                StreamIO.write_short(stream, slot_data.get_damage())
-                NBTSerializer.write(stream, slot_data.get_tag())
+        for slot_data in packet.slots:
+            StreamIO.write_short(stream, slot_data.id)
+            if not slot_data.empty:
+                StreamIO.write_byte(stream, slot_data.count)
+                StreamIO.write_short(stream, slot_data.damage)
+                NBTSerializer.write(stream, slot_data.tag)
 
     @staticmethod
     def read(stream, packet_size):
@@ -48,10 +52,10 @@ class WindowItemsPacket(BasePacket):
 
         for i in xrange(slots_len):
             slot_data = SlotData(StreamIO.read_short(stream))
-            if not slot_data.is_empty():
-                slot_data.set_count(StreamIO.read_byte(stream))
-                slot_data.set_damage(StreamIO.read_short(stream))
-                slot_data.set_tag(NBTSerializer.read(stream))
+            if not slot_data.empty:
+                slot_data.count = StreamIO.read_byte(stream)
+                slot_data.damage = StreamIO.read_short(stream)
+                slot_data.tag = NBTSerializer.read(stream)
 
             slots.append(slot_data)
 

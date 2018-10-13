@@ -11,17 +11,19 @@ class ChatMessageServerPacket(BasePacket):
 
     def __init__(self, message):
         BasePacket.__init__(self)
-        self._message = unicode(message)
+        self.__message = unicode(message)
 
-    def get_message(self):
-        return self._message
+    @property
+    def message(self):
+        return self.__message
 
-    def set_message(self, message):
-        self._message = unicode(message)
+    @message.setter
+    def message(self, message):
+        self.__message = unicode(message)
 
     @staticmethod
     def write(stream, packet):
-        StreamIO.write_string(stream, packet.get_message().encode("utf8"))
+        StreamIO.write_string(stream, packet.message.encode("utf8"))
 
     @staticmethod
     def read(stream, packet_size):

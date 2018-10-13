@@ -15,17 +15,19 @@ class ClientStatusPacket(BasePacket):
 
     def __init__(self, action):
         BasePacket.__init__(self)
-        self._action = int(action)
+        self.__action = int(action)
 
-    def get_action(self):
-        return self._action
+    @property
+    def action(self):
+        return self.__action
 
-    def set_action(self, action):
-        self._action = int(action)
+    @action.setter
+    def action(self, action):
+        self.__action = int(action)
 
     @staticmethod
     def write(stream, packet):
-        StreamIO.write_varint(stream, packet.get_action())
+        StreamIO.write_varint(stream, packet.action)
 
     @staticmethod
     def read(stream, packet_size):

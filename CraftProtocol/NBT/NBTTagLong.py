@@ -9,10 +9,10 @@ class NBTTagLong(NBTBase):
 
     def __init__(self, value):
         NBTBase.__init__(self)
-        self._value = long(value)
+        self.__value = long(value)
 
     def get(self):
-        return self._value
+        return self.__value
 
     @staticmethod
     def write(stream, tag):

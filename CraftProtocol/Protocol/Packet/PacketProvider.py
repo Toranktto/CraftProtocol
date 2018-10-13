@@ -5,11 +5,11 @@ from CraftProtocol.Protocol.ProtocolState import ProtocolState
 
 
 class PacketProvider(object):
-    _PACKETS = {}
+    _packets = {}
 
     @staticmethod
     def get_packet_class(protocol, state, direction, packet_id):
-        return PacketProvider._PACKETS[protocol][state][direction][packet_id]
+        return PacketProvider._packets[protocol][state][direction][packet_id]
 
     @staticmethod
     def register(protocol, state, direction, packet_id, cls):
@@ -18,8 +18,8 @@ class PacketProvider(object):
         direction = int(direction)
         packet_id = int(packet_id)
 
-        if protocol not in PacketProvider._PACKETS:
-            PacketProvider._PACKETS[protocol] = {
+        if protocol not in PacketProvider._packets:
+            PacketProvider._packets[protocol] = {
                 ProtocolState.HANDSHAKING: {
                     PacketDirection.SERVERBOUND: {}, PacketDirection.CLIENTBOUND: {}
                 },
@@ -34,7 +34,7 @@ class PacketProvider(object):
                 }
             }
 
-        if packet_id in PacketProvider._PACKETS[protocol][state][direction]:
+        if packet_id in PacketProvider._packets[protocol][state][direction]:
             raise ValueError("this id is already registered")
 
-        PacketProvider._PACKETS[protocol][state][direction][packet_id] = cls
+        PacketProvider._packets[protocol][state][direction][packet_id] = cls

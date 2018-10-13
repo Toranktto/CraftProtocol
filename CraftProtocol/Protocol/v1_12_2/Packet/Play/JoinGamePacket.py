@@ -11,65 +11,79 @@ class JoinGamePacket(BasePacket):
 
     def __init__(self, entity_id, gamemode, dimension, difficulty, max_players, level_type, debug_info):
         BasePacket.__init__(self)
-        self._entity_id = int(entity_id)
-        self._gamemode = int(gamemode)
-        self._dimension = int(dimension)
-        self._difficulty = int(difficulty)
-        self._max_players = int(max_players)
-        self._level_type = unicode(level_type)
-        self._debug_info = bool(debug_info)
+        self.__entity_id = int(entity_id)
+        self.__gamemode = int(gamemode)
+        self.__dimension = int(dimension)
+        self.__difficulty = int(difficulty)
+        self.__max_players = int(max_players)
+        self.__level_type = unicode(level_type)
+        self.__debug_info = bool(debug_info)
 
-    def get_entity_id(self):
-        return self._entity_id
+    @property
+    def entity_id(self):
+        return self.__entity_id
 
-    def set_entity_id(self, entity_id):
-        self._entity_id = int(entity_id)
+    @entity_id.setter
+    def entity_id(self, entity_id):
+        self.__entity_id = int(entity_id)
 
-    def get_gamemode(self):
-        return self._gamemode
+    @property
+    def gamemode(self):
+        return self.__gamemode
 
-    def set_gamemode(self, gamemode):
-        self._gamemode = int(gamemode)
+    @gamemode.setter
+    def gamemode(self, gamemode):
+        self.__gamemode = int(gamemode)
 
-    def get_dimension(self):
-        return self._dimension
+    @property
+    def dimension(self):
+        return self.__dimension
 
-    def set_dimension(self, dimension):
-        self._dimension = int(dimension)
+    @dimension.setter
+    def dimension(self, dimension):
+        self.__dimension = int(dimension)
 
-    def get_difficulty(self):
-        return self._difficulty
+    @property
+    def difficulty(self):
+        return self.__difficulty
 
-    def set_difficulty(self, difficulty):
-        self._difficulty = int(difficulty)
+    @difficulty.setter
+    def difficulty(self, difficulty):
+        self.__difficulty = int(difficulty)
 
-    def get_max_players(self):
-        return self._max_players
+    @property
+    def max_players(self):
+        return self.__max_players
 
-    def set_max_players(self, max_players):
-        self._max_players = int(max_players)
+    @max_players.setter
+    def max_players(self, max_players):
+        self.__max_players = int(max_players)
 
-    def get_level_type(self):
-        return self._level_type
+    @property
+    def level_type(self):
+        return self.__level_type
 
-    def set_level_type(self, level_type):
-        self._level_type = unicode(level_type)
+    @level_type.setter
+    def level_type(self, level_type):
+        self.__level_type = unicode(level_type)
 
-    def is_debug_info(self):
-        return self._debug_info
+    @property
+    def debug_info(self):
+        return self.__debug_info
 
-    def set_debug_info(self, debug_info):
-        self._debug_info = bool(debug_info)
+    @debug_info.setter
+    def debug_info(self, debug_info):
+        self.__debug_info = bool(debug_info)
 
     @staticmethod
     def write(stream, packet):
-        StreamIO.write_int(stream, packet.get_entity_id())
-        StreamIO.write_ubyte(stream, packet.get_gamemode())
-        StreamIO.write_int(stream, packet.get_dimension())
-        StreamIO.write_ubyte(stream, packet.get_difficulty())
-        StreamIO.write_ubyte(stream, packet.get_max_players())
-        StreamIO.write_string(stream, packet.get_level_type().encode("utf8"))
-        StreamIO.write_bool(stream, packet.is_debug_info())
+        StreamIO.write_int(stream, packet.entity_id)
+        StreamIO.write_ubyte(stream, packet.gamemode)
+        StreamIO.write_int(stream, packet.dimension)
+        StreamIO.write_ubyte(stream, packet.difficulty)
+        StreamIO.write_ubyte(stream, packet.max_players)
+        StreamIO.write_string(stream, packet.level_type.encode("utf8"))
+        StreamIO.write_bool(stream, packet.debug_info)
 
     @staticmethod
     def read(stream, packet_size):

@@ -11,17 +11,19 @@ class CloseWindowClientPacket(BasePacket):
 
     def __init__(self, window_id):
         BasePacket.__init__(self)
-        self._window_id = int(window_id)
+        self.__window_id = int(window_id)
 
-    def get_window_id(self):
-        return self._window_id
+    @property
+    def window_id(self):
+        return self.__window_id
 
-    def set_window_id(self, window_id):
-        self._window_id = int(window_id)
+    @window_id.setter
+    def window_id(self, window_id):
+        self.__window_id = int(window_id)
 
     @staticmethod
     def write(stream, packet):
-        StreamIO.write_ubyte(stream, packet.get_window_id())
+        StreamIO.write_ubyte(stream, packet.window_id)
 
     @staticmethod
     def read(stream, packet_size):

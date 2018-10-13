@@ -8,7 +8,7 @@ import CraftProtocol
 class NBTTest(unittest.TestCase):
 
     def test_basic(self):
-        tag = CraftProtocol.NBT.NBTSerializer.read(open("basic_test.nbt"))
+        tag = CraftProtocol.NBT.NBTSerializer.read(open("tests/basic_test.nbt"))
         self.assertEqual(tag["name"].get(), "Bananrama")
 
 

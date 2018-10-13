@@ -9,10 +9,10 @@ class NBTTagString(NBTBase):
 
     def __init__(self, value):
         NBTBase.__init__(self)
-        self._value = unicode(value)
+        self.__value = unicode(value)
 
     def get(self):
-        return self._value
+        return self.__value
 
     @staticmethod
     def write(stream, tag):

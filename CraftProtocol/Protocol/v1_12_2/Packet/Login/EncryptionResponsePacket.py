@@ -11,25 +11,29 @@ class EncryptionResponsePacket(BasePacket):
 
     def __init__(self, shared_secret, verify_token):
         BasePacket.__init__(self)
-        self._shared_secret = shared_secret
-        self._verify_token = verify_token
+        self.__shared_secret = shared_secret
+        self.__verify_token = verify_token
 
-    def get_shared_secret(self):
-        return self._shared_secret
+    @property
+    def shared_secret(self):
+        return self.__shared_secret
 
-    def set_shared_secret(self, shared_secret):
-        self._shared_secret = shared_secret
+    @shared_secret.setter
+    def shared_secret(self, shared_secret):
+        self.__shared_secret = shared_secret
 
-    def get_verify_token(self):
-        return self._verify_token
+    @property
+    def verify_token(self):
+        return self.__verify_token
 
-    def set_verify_token(self, verify_token):
-        self._verify_token = verify_token
+    @verify_token.setter
+    def verify_token(self, verify_token):
+        self.__verify_token = verify_token
 
     @staticmethod
     def write(stream, packet):
-        StreamIO.write_string(stream, packet.get_shared_secret())
-        StreamIO.write_string(stream, packet.get_verify_token())
+        StreamIO.write_string(stream, packet.shared_secret)
+        StreamIO.write_string(stream, packet.verify_token)
 
     @staticmethod
     def read(stream, packet_size):

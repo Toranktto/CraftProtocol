@@ -11,25 +11,29 @@ class PluginMessageServerPacket(BasePacket):
 
     def __init__(self, channel, plugin_bytes):
         BasePacket.__init__(self)
-        self._channel = unicode(channel)
-        self._bytes = plugin_bytes
+        self.__channel = unicode(channel)
+        self.__bytes = plugin_bytes
 
-    def get_channel(self):
-        return self._channel
+    @property
+    def channel(self):
+        return self.__channel
 
-    def set_channel(self, channel):
-        self._channel = unicode(channel)
+    @channel.setter
+    def channel(self, channel):
+        self.__channel = unicode(channel)
 
-    def get_bytes(self):
-        return self._bytes
+    @property
+    def bytes(self):
+        return self.__bytes
 
-    def set_bytes(self, plugin_bytes):
-        self._bytes = plugin_bytes
+    @bytes.setter
+    def bytes(self, plugin_bytes):
+        self.__bytes = plugin_bytes
 
     @staticmethod
     def write(stream, packet):
-        StreamIO.write_string(stream, packet.get_channel().encode("utf8"))
-        StreamIO.write(stream, packet.get_bytes())
+        StreamIO.write_string(stream, packet.channel.encode("utf8"))
+        StreamIO.write(stream, packet.bytes)
 
     @staticmethod
     def read(stream, packet_size):

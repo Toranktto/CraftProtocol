@@ -11,17 +11,19 @@ class KeepAliveClientPacket(BasePacket):
 
     def __init__(self, keepalive_id):
         BasePacket.__init__(self)
-        self._id = int(keepalive_id)
+        self.__id = int(keepalive_id)
 
-    def get_id(self):
-        return self._id
+    @property
+    def id(self):
+        return self.__id
 
-    def set_id(self, keepalive_id):
-        self._id = int(keepalive_id)
+    @id.setter
+    def id(self, keepalive_id):
+        self.__id = int(keepalive_id)
 
     @staticmethod
     def write(stream, packet):
-        StreamIO.write_varint(stream, packet.get_id())
+        StreamIO.write_varint(stream, packet.id)
 
     @staticmethod
     def read(stream, packet_size):

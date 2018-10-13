@@ -6,8 +6,7 @@ __all__ = [
     "NBT",
     "Protocol",
     "World",
-    "StreamIO",
-    "VersionConstants"
+    "StreamIO"
 ]
 
 import CraftProtocol.Chat
@@ -16,6 +15,9 @@ import CraftProtocol.NBT
 import CraftProtocol.Protocol
 import CraftProtocol.World
 from CraftProtocol.StreamIO import StreamIO
-from CraftProtocol.VersionConstants import VersionConstants
 
-__version__ = VersionConstants.VERSION
+__version__ = "0.2.7b1"
+
+
+def get_version():
+    return __version__

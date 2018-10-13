@@ -13,17 +13,19 @@ class ResponsePacket(BasePacket):
 
     def __init__(self, description):
         BasePacket.__init__(self)
-        self._description = description
+        self.__description = description
 
-    def get_description(self):
-        return self._description
+    @property
+    def description(self):
+        return self.__description
 
-    def set_description(self, description):
-        self._description = description
+    @description.setter
+    def description(self, description):
+        self.__description = description
 
     @staticmethod
     def write(stream, packet):
-        StreamIO.write_string(stream, json.dumps(packet.get_description()).encode("utf8"))
+        StreamIO.write_string(stream, json.dumps(packet.description).encode("utf8"))
 
     @staticmethod
     def read(stream, packet_size):

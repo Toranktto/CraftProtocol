@@ -13,34 +13,34 @@ class NBTTagByteArray(NBTBase):
         if values is None:
             values = []
 
-        self._values = bytearray(values)
+        self.__values = bytearray(values)
 
     def get(self):
-        return self._values
+        return self.__values
 
     def __getitem__(self, i):
-        return self._values.__getitem__(i)
+        return self.__values.__getitem__(i)
 
     def __setitem__(self, i, o):
-        self._values.__setitem__(i, int(o))
+        self.__values.__setitem__(i, int(o))
 
     def __delitem__(self, i):
-        self._values.__delitem__(i)
+        self.__values.__delitem__(i)
 
     def __iter__(self):
-        return self._values.__iter__()
+        return self.__values.__iter__()
 
     def __contains__(self, o):
-        return self._values.__contains__(int(o))
+        return self.__values.__contains__(int(o))
 
     def __len__(self):
-        return self._values.__len__()
+        return self.__values.__len__()
 
     def append(self, x):
-        self._values.append(int(x))
+        self.__values.append(int(x))
 
     def remove(self, x):
-        self._values.remove(int(x))
+        self.__values.remove(int(x))
 
     @staticmethod
     def write(stream, tag):

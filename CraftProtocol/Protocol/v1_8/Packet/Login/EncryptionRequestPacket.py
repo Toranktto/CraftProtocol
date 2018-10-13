@@ -11,33 +11,39 @@ class EncryptionRequestPacket(BasePacket):
 
     def __init__(self, server_id, public_key, verify_token):
         BasePacket.__init__(self)
-        self._server_id = unicode(server_id)
-        self._public_key = public_key
-        self._verify_token = verify_token
+        self.__server_id = unicode(server_id)
+        self.__public_key = public_key
+        self.__verify_token = verify_token
 
-    def get_server_id(self):
-        return self._server_id
+    @property
+    def server_id(self):
+        return self.__server_id
 
-    def set_server_id(self, server_id):
-        self._server_id = unicode(server_id)
+    @server_id.setter
+    def server_id(self, server_id):
+        self.__server_id = unicode(server_id)
 
-    def get_public_key(self):
-        return self._public_key
+    @property
+    def public_key(self):
+        return self.__public_key
 
-    def set_public_key(self, public_key):
-        self._public_key = public_key
+    @public_key.setter
+    def public_key(self, public_key):
+        self.__public_key = public_key
 
-    def get_verify_token(self):
-        return self._verify_token
+    @property
+    def verify_token(self):
+        return self.__verify_token
 
-    def set_verify_token(self, verify_token):
-        self._verify_token = verify_token
+    @verify_token.setter
+    def verify_token(self, verify_token):
+        self.__verify_token = verify_token
 
     @staticmethod
     def write(stream, packet):
-        StreamIO.write_string(stream, packet.get_server_id().encode("utf8"))
-        StreamIO.write_string(stream, packet.get_public_key())
-        StreamIO.write_string(stream, packet.get_verify_token())
+        StreamIO.write_string(stream, packet.server_id.encode("utf8"))
+        StreamIO.write_string(stream, packet.public_key)
+        StreamIO.write_string(stream, packet.verify_token)
 
     @staticmethod
     def read(stream, packet_size):

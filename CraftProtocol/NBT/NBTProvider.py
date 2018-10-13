@@ -2,15 +2,15 @@
 
 
 class NBTProvider(object):
-    _TAGS = {}
+    _tags = {}
 
     @staticmethod
     def get_tag_class(type_id):
-        return NBTProvider._TAGS[type_id]
+        return NBTProvider._tags[type_id]
 
     @staticmethod
     def register(type_id, cls):
-        if type_id in NBTProvider._TAGS:
+        if type_id in NBTProvider._tags:
             raise ValueError("this id is already registered")
 
-        NBTProvider._TAGS[type_id] = cls
+        NBTProvider._tags[type_id] = cls

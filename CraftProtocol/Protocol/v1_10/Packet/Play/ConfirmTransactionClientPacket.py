@@ -11,33 +11,39 @@ class ConfirmTransactionClientPacket(BasePacket):
 
     def __init__(self, window_id, transaction_id, accepted):
         BasePacket.__init__(self)
-        self._window_id = int(window_id)
-        self._transaction_id = int(transaction_id)
-        self._accepted = bool(accepted)
+        self.__window_id = int(window_id)
+        self.__transaction_id = int(transaction_id)
+        self.__accepted = bool(accepted)
 
-    def get_window_id(self):
-        return self._window_id
+    @property
+    def window_id(self):
+        return self.__window_id
 
-    def set_window_id(self, window_id):
-        self._window_id = int(window_id)
+    @window_id.setter
+    def window_id(self, window_id):
+        self.__window_id = int(window_id)
 
-    def get_transaction_id(self):
-        return self._transaction_id
+    @property
+    def transaction_id(self):
+        return self.__transaction_id
 
-    def set_transaction_id(self, transaction_id):
-        self._transaction_id = int(transaction_id)
+    @transaction_id.setter
+    def transaction_id(self, transaction_id):
+        self.__transaction_id = int(transaction_id)
 
-    def is_accepted(self):
-        return self._accepted
+    @property
+    def accepted(self):
+        return self.__accepted
 
-    def set_accepted(self, accepted):
-        self._accepted = bool(accepted)
+    @accepted.setter
+    def accepted(self, accepted):
+        self.__accepted = bool(accepted)
 
     @staticmethod
     def write(stream, packet):
-        StreamIO.write_byte(stream, packet.get_window_id())
-        StreamIO.write_short(stream, packet.get_transaction_id())
-        StreamIO.write_bool(stream, packet.is_accepted())
+        StreamIO.write_byte(stream, packet.window_id)
+        StreamIO.write_short(stream, packet.transaction_id)
+        StreamIO.write_bool(stream, packet.accepted)
 
     @staticmethod
     def read(stream, packet_size):

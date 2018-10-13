@@ -11,17 +11,19 @@ class UseItemPacket(BasePacket):
 
     def __init__(self, hand_type):
         BasePacket.__init__(self)
-        self._hand_type = int(hand_type)
+        self.__hand_type = int(hand_type)
 
-    def get_hand_type(self):
-        return self._hand_type
+    @property
+    def hand_type(self):
+        return self.__hand_type
 
-    def set_hand_type(self, hand_type):
-        self._hand_type = int(hand_type)
+    @hand_type.setter
+    def hand_type(self, hand_type):
+        self.__hand_type = int(hand_type)
 
     @staticmethod
     def write(stream, packet):
-        StreamIO.write_varint(stream, packet.get_hand_type())
+        StreamIO.write_varint(stream, packet.hand_type)
 
     @staticmethod
     def read(stream, packet_size):

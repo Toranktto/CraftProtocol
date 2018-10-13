@@ -21,7 +21,7 @@ def main():
         CraftProtocol.Protocol.ProtocolState.STATUS
     ))
 
-    serializer.set_state(CraftProtocol.Protocol.ProtocolState.STATUS)
+    serializer.state = CraftProtocol.Protocol.ProtocolState.STATUS
 
     serializer.write(sock, CraftProtocol.Protocol.v1_10.Packet.Status.RequestPacket())
 
@@ -31,7 +31,7 @@ def main():
         print "Invalid packet received!"
         exit(1)
 
-    print CraftProtocol.Chat.ChatSerializer.strip_colors(response.get_description()["description"])
+    print CraftProtocol.Chat.ChatSerializer.strip_colors(response.description["description"])
 
 
 if __name__ == "__main__":

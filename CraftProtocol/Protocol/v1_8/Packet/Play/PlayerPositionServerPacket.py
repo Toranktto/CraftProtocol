@@ -11,41 +11,49 @@ class PlayerPositionServerPacket(BasePacket):
 
     def __init__(self, x, y, z, on_ground):
         BasePacket.__init__(self)
-        self._x = float(x)
-        self._y = float(y)
-        self._z = float(z)
-        self._on_ground = bool(on_ground)
+        self.__x = float(x)
+        self.__y = float(y)
+        self.__z = float(z)
+        self.__on_ground = bool(on_ground)
 
-    def get_x(self):
-        return self._x
+    @property
+    def x(self):
+        return self.__x
 
-    def set_x(self, x):
-        self._x = float(x)
+    @x.setter
+    def x(self, x):
+        self.__x = float(x)
 
-    def get_y(self):
-        return self._y
+    @property
+    def y(self):
+        return self.__y
 
-    def set_y(self, y):
-        self._y = float(y)
+    @y.setter
+    def y(self, y):
+        self.__y = float(y)
 
-    def get_z(self):
-        return self._z
+    @property
+    def z(self):
+        return self.__z
 
-    def set_z(self, z):
-        self._z = float(z)
+    @z.setter
+    def z(self, z):
+        self.__z = float(z)
 
-    def is_on_ground(self):
-        return self._on_ground
+    @property
+    def on_ground(self):
+        return self.__on_ground
 
-    def set_on_ground(self, on_ground):
-        self._on_ground = bool(on_ground)
+    @on_ground.setter
+    def on_ground(self, on_ground):
+        self.__on_ground = bool(on_ground)
 
     @staticmethod
     def write(stream, packet):
-        StreamIO.write_double(stream, packet.get_x())
-        StreamIO.write_double(stream, packet.get_y())
-        StreamIO.write_double(stream, packet.get_z())
-        StreamIO.write_bool(stream, packet.is_on_ground())
+        StreamIO.write_double(stream, packet.x)
+        StreamIO.write_double(stream, packet.y)
+        StreamIO.write_double(stream, packet.z)
+        StreamIO.write_bool(stream, packet.on_ground)
 
     @staticmethod
     def read(stream, packet_size):

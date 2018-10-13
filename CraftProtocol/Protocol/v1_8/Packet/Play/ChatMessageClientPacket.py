@@ -13,25 +13,29 @@ class ChatMessageClientPacket(BasePacket):
 
     def __init__(self, chat, position):
         BasePacket.__init__(self)
-        self._chat = chat
-        self._position = int(position)
+        self.__chat = chat
+        self.__position = int(position)
 
-    def get_chat(self):
-        return self._chat
+    @property
+    def chat(self):
+        return self.__chat
 
-    def set_chat(self, chat):
-        self._chat = chat
+    @chat.setter
+    def chat(self, chat):
+        self.__chat = chat
 
-    def get_position(self):
-        return self._position
+    @property
+    def position(self):
+        return self.__position
 
-    def set_position(self, position):
-        self._position = position
+    @position.setter
+    def position(self, position):
+        self.__position = position
 
     @staticmethod
     def write(stream, packet):
-        StreamIO.write_string(stream, json.dumps(packet.get_chat()).encode("utf8"))
-        StreamIO.write_byte(stream, packet.get_position())
+        StreamIO.write_string(stream, json.dumps(packet.chat).encode("utf8"))
+        StreamIO.write_byte(stream, packet.position)
 
     @staticmethod
     def read(stream, packet_size):

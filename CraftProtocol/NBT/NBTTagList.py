@@ -14,52 +14,53 @@ class NBTTagList(NBTBase):
         if values is None:
             values = []
 
-        self._tag_type = tag_type
-        self._values = list(values)
+        self.__tag_type = tag_type
+        self.__values = list(values)
 
     def get(self):
-        return self._values
+        return self.__values
 
-    def get_tag_type(self):
-        return self._tag_type
+    @property
+    def tag_type(self):
+        return self.__tag_type
 
     def __getitem__(self, i):
-        return self._values.__getitem__(i)
+        return self.__values.__getitem__(i)
 
     def __setitem__(self, i, o):
-        assert isinstance(o, self._tag_type), "value must be " + self._tag_type.__name__
+        assert isinstance(o, self.__tag_type), "value must be " + self.__tag_type.__name__
 
-        self._values.__setitem__(i, o)
+        self.__values.__setitem__(i, o)
 
     def __delitem__(self, i):
-        self._values.__delitem__(i)
+        self.__values.__delitem__(i)
 
     def __iter__(self):
-        return self._values.__iter__()
+        return self.__values.__iter__()
 
     def __contains__(self, o):
-        return self._values.__contains__(o)
+        return self.__values.__contains__(o)
 
     def __len__(self):
-        return self._values.__len__()
+        return self.__values.__len__()
 
     def append(self, x):
-        assert isinstance(x, self._tag_type), "arg must be " + self._tag_type.__name__
+        assert isinstance(x, self.__tag_type), "arg must be " + self.__tag_type.__name__
 
-        self._values.append(x)
+        self.__values.append(x)
 
     def remove(self, x):
-        assert isinstance(x, self._tag_type), "arg must be " + self._tag_type.__name__
+        assert isinstance(x, self.__tag_type), "arg must be " + self.__tag_type.__name__
 
-        self._values.remove(x)
+        self.__values.remove(x)
 
     @staticmethod
     def write(stream, tag):
-        StreamIO.write_ubyte(stream, tag.get_tag_type().TYPE_ID)
+        StreamIO.write_ubyte(stream, tag.tag_type.TYPE_ID)
         StreamIO.write_int(stream, len(tag))
 
         for i in tag:
-            tag.get_tag_type().write(stream, i)
+            tag.tag_type.write(stream, i)
 
     @staticmethod
     def read(stream):

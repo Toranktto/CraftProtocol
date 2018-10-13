@@ -11,17 +11,19 @@ class HeldItemChangeServerPacket(BasePacket):
 
     def __init__(self, slot):
         BasePacket.__init__(self)
-        self._slot = int(slot)
+        self.__slot = int(slot)
 
-    def get_slot(self):
-        return self._slot
+    @property
+    def slot(self):
+        return self.__slot
 
-    def set_slot(self, slot):
-        self._slot = int(slot)
+    @slot.setter
+    def slot(self, slot):
+        self.__slot = int(slot)
 
     @staticmethod
     def write(stream, packet):
-        StreamIO.write_short(stream, packet.get_slot())
+        StreamIO.write_short(stream, packet.slot)
 
     @staticmethod
     def read(stream, packet_size):

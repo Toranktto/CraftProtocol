@@ -13,57 +13,67 @@ class OpenWindowPacket(BasePacket):
 
     def __init__(self, window_id, window_type, window_title, slots_number, entity_id=None):
         BasePacket.__init__(self)
-        self._window_id = int(window_id)
-        self._window_type = unicode(window_type)
-        self._window_title = window_title
-        self._slots_number = int(slots_number)
+        self.__window_id = int(window_id)
+        self.__window_type = unicode(window_type)
+        self.__window_title = window_title
+        self.__slots_number = int(slots_number)
 
         if entity_id is not None:
             entity_id = int(entity_id)
 
-        self._entity_id = entity_id
+        self.__entity_id = entity_id
 
-    def get_window_id(self):
-        return self._window_id
+    @property
+    def window_id(self):
+        return self.__window_id
 
-    def set_window_id(self, window_id):
-        self._window_id = int(window_id)
+    @window_id.setter
+    def window_id(self, window_id):
+        self.__window_id = int(window_id)
 
-    def get_window_type(self):
-        return self._window_type
+    @property
+    def window_type(self):
+        return self.__window_type
 
-    def set_window_type(self, window_type):
-        self._window_type = unicode(window_type)
+    @window_type.setter
+    def window_type(self, window_type):
+        self.__window_type = unicode(window_type)
 
-    def get_window_title(self):
-        return self._window_title
+    @property
+    def window_title(self):
+        return self.__window_title
 
-    def set_window_title(self, window_title):
-        self._window_title = window_title
+    @window_title.setter
+    def window_title(self, window_title):
+        self.__window_title = window_title
 
-    def get_slots_number(self):
-        return self._slots_number
+    @property
+    def slots_number(self):
+        return self.__slots_number
 
-    def set_slots_number(self, slots_number):
-        self._slots_number = int(slots_number)
+    @slots_number.setter
+    def slots_number(self, slots_number):
+        self.__slots_number = int(slots_number)
 
-    def get_entity_id(self):
-        return self._entity_id
+    @property
+    def entity_id(self):
+        return self.__entity_id
 
-    def set_entity_id(self, entity_id):
+    @entity_id.setter
+    def entity_id(self, entity_id):
         if entity_id is not None:
             entity_id = int(entity_id)
 
-        self._entity_id = entity_id
+        self.__entity_id = entity_id
 
     @staticmethod
     def write(stream, packet):
-        StreamIO.write_ubyte(stream, packet.get_window_id())
-        StreamIO.write_string(stream, packet.get_window_type().encode("utf8"))
-        StreamIO.write_string(stream, json.dumps(packet.get_window_title()).encode("utf8"))
-        StreamIO.write_ubyte(stream, packet.get_slots_number())
-        if packet.get_window_type() == "EntityHorse":
-            StreamIO.write_int(stream, packet.get_entity_id())
+        StreamIO.write_ubyte(stream, packet.window_id)
+        StreamIO.write_string(stream, packet.window_type.encode("utf8"))
+        StreamIO.write_string(stream, json.dumps(packet.window_title).encode("utf8"))
+        StreamIO.write_ubyte(stream, packet.slots_number)
+        if packet.window_type == "EntityHorse":
+            StreamIO.write_int(stream, packet.entity_id)
 
     @staticmethod
     def read(stream, packet_size):

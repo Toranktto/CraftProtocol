@@ -15,36 +15,36 @@ class NBTTagCompound(NBTBase):
         if values is None:
             values = {}
 
-        self._values = dict(values)
+        self.__values = dict(values)
 
     def get(self):
-        return self._values
+        return self.__values
 
     def __getitem__(self, k):
-        return self._values.__getitem__(k)
+        return self.__values.__getitem__(k)
 
     def __setitem__(self, k, v):
         assert isinstance(v, NBTBase), "value must be NBTBase"
 
-        self._values.__setitem__(k, v)
+        self.__values.__setitem__(k, v)
 
     def __delitem__(self, k):
-        self._values.__delitem__(k)
+        self.__values.__delitem__(k)
 
     def __iter__(self):
-        return self._values.__iter__()
+        return self.__values.__iter__()
 
     def __contains__(self, k):
-        return self._values.__contains__(k)
+        return self.__values.__contains__(k)
 
     def __len__(self):
-        return self._values.__len__()
+        return self.__values.__len__()
 
     def keys(self):
-        return self._values.keys()
+        return self.__values.keys()
 
     def items(self):
-        return self._values.items()
+        return self.__values.items()
 
     @staticmethod
     def write(stream, tag):

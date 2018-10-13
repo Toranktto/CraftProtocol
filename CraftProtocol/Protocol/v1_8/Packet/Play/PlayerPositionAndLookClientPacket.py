@@ -11,57 +11,69 @@ class PlayerPositionAndLookClientPacket(BasePacket):
 
     def __init__(self, x, y, z, yaw, pitch, flags):
         BasePacket.__init__(self)
-        self._x = float(x)
-        self._y = float(y)
-        self._z = float(z)
-        self._yaw = float(yaw)
-        self._pitch = float(pitch)
-        self._flags = int(flags)
+        self.__x = float(x)
+        self.__y = float(y)
+        self.__z = float(z)
+        self.__yaw = float(yaw)
+        self.__pitch = float(pitch)
+        self.__flags = int(flags)
 
-    def get_x(self):
-        return self._x
+    @property
+    def x(self):
+        return self.__x
 
-    def set_x(self, x):
-        self._x = float(x)
+    @x.setter
+    def x(self, x):
+        self.__x = float(x)
 
-    def get_y(self):
-        return self._y
+    @property
+    def y(self):
+        return self.__y
 
-    def set_y(self, y):
-        self._y = float(y)
+    @y.setter
+    def y(self, y):
+        self.__y = float(y)
 
-    def get_z(self):
-        return self._z
+    @property
+    def z(self):
+        return self.__z
 
-    def set_z(self, z):
-        self._z = float(z)
+    @z.setter
+    def z(self, z):
+        self.__z = float(z)
 
-    def get_yaw(self):
-        return self._yaw
+    @property
+    def yaw(self):
+        return self.__yaw
 
-    def set_yaw(self, yaw):
-        self._yaw = float(yaw)
+    @yaw.setter
+    def yaw(self, yaw):
+        self.__yaw = float(yaw)
 
-    def get_pitch(self):
-        return self._pitch
+    @property
+    def pitch(self):
+        return self.__pitch
 
-    def set_pitch(self, pitch):
-        self._pitch = float(pitch)
+    @pitch.setter
+    def pitch(self, pitch):
+        self.__pitch = float(pitch)
 
-    def get_flags(self):
-        return self._flags
+    @property
+    def flags(self):
+        return self.__flags
 
-    def set_flags(self, flags):
-        self._flags = int(flags)
+    @flags.setter
+    def flags(self, flags):
+        self.__flags = int(flags)
 
     @staticmethod
     def write(stream, packet):
-        StreamIO.write_double(stream, packet.get_x())
-        StreamIO.write_double(stream, packet.get_y())
-        StreamIO.write_double(stream, packet.get_z())
-        StreamIO.write_float(stream, packet.get_yaw())
-        StreamIO.write_float(stream, packet.get_pitch())
-        StreamIO.write_byte(stream, packet.get_flags())
+        StreamIO.write_double(stream, packet.x)
+        StreamIO.write_double(stream, packet.y)
+        StreamIO.write_double(stream, packet.z)
+        StreamIO.write_float(stream, packet.yaw)
+        StreamIO.write_float(stream, packet.pitch)
+        StreamIO.write_byte(stream, packet.flags)
 
     @staticmethod
     def read(stream, packet_size):

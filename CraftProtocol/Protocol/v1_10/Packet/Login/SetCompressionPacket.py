@@ -11,17 +11,19 @@ class SetCompressionPacket(BasePacket):
 
     def __init__(self, threshold):
         BasePacket.__init__(self)
-        self._threshold = int(threshold)
+        self.__threshold = int(threshold)
 
-    def get_threshold(self):
-        return self._threshold
+    @property
+    def threshold(self):
+        return self.__threshold
 
-    def set_threshold(self, threshold):
-        self._threshold = int(threshold)
+    @threshold.setter
+    def threshold(self, threshold):
+        self.__threshold = int(threshold)
 
     @staticmethod
     def write(stream, packet):
-        StreamIO.write_varint(stream, packet.get_threshold())
+        StreamIO.write_varint(stream, packet.threshold)
 
     @staticmethod
     def read(stream, packet_size):
