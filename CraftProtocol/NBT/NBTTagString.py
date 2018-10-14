@@ -21,7 +21,4 @@ class NBTTagString(NBTBase):
 
     @staticmethod
     def read(stream):
-        len = StreamIO.read_ushort(stream)
-        value = StreamIO.read(stream, len).decode("utf8")
-
-        return NBTTagString(value)
+        return NBTTagString(StreamIO.read(stream, StreamIO.read_ushort(stream)).decode("utf8"))

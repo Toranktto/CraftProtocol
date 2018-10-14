@@ -20,6 +20,4 @@ class NBTTagDouble(NBTBase):
 
     @staticmethod
     def read(stream):
-        value = StreamIO.read_double(stream)
-
-        return NBTTagDouble(value)
+        return NBTTagDouble(StreamIO.read_double(stream))

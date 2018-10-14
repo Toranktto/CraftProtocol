@@ -7,42 +7,42 @@ import struct
 class StreamIO(object):
 
     @staticmethod
-    def write_bool(stream, x):
-        StreamIO.write_ubyte(stream, 0x01 if bool(x) else 0x00)
+    def write_bool(stream, value):
+        StreamIO.write_ubyte(stream, 0x01 if bool(value) else 0x00)
 
     @staticmethod
     def read_bool(stream):
         return True if StreamIO.read_ubyte(stream) >= 0x01 else False
 
     @staticmethod
-    def write_byte(stream, x):
-        StreamIO.write(stream, struct.pack("b", int(x)))
+    def write_byte(stream, value):
+        StreamIO.write(stream, struct.pack("b", int(value)))
 
     @staticmethod
     def read_byte(stream):
         return struct.unpack("b", StreamIO.read(stream, 1))[0]
 
     @staticmethod
-    def write_ubyte(stream, x):
-        StreamIO.write(stream, struct.pack("B", int(x)))
+    def write_ubyte(stream, value):
+        StreamIO.write(stream, struct.pack("B", int(value)))
 
     @staticmethod
     def read_ubyte(stream):
         return struct.unpack("B", StreamIO.read(stream, 1))[0]
 
     @staticmethod
-    def write_varint(stream, x):
-        x = int(x)
+    def write_varint(stream, value):
+        value = int(value)
 
-        if x < 0:
-            x = (1 << 32) + x
+        if value < 0:
+            value = (1 << 32) + value
 
         buf = ""
         while True:
-            byte = x & 0x7f
-            x >>= 7
+            byte = value & 0x7f
+            value >>= 7
 
-            if x:
+            if value:
                 buf += chr(byte | 0x80)
             else:
                 buf += chr(byte)
@@ -72,32 +72,32 @@ class StreamIO(object):
         return result
 
     @staticmethod
-    def size_varint(x):
-        x = int(x)
+    def size_varint(value):
+        value = int(value)
 
-        if x < 0:
-            x = (1 << 32) + x
+        if value < 0:
+            value = (1 << 32) + value
 
         size = 1
-        while x & ~0x7f:
+        while value & ~0x7f:
             size += 1
-            x >>= 7
+            value >>= 7
 
         return size
 
     @staticmethod
-    def write_varlong(stream, x):
-        x = long(x)
+    def write_varlong(stream, value):
+        value = long(value)
 
-        if x < 0:
-            x = (1 << 32) + x
+        if value < 0:
+            value = (1 << 32) + value
 
         buf = ""
         while True:
-            byte = x & 0x7f
-            x >>= 7
+            byte = value & 0x7f
+            value >>= 7
 
-            if x:
+            if value:
                 buf += chr(byte | 0x80)
             else:
                 buf += chr(byte)
@@ -127,30 +127,30 @@ class StreamIO(object):
         return result
 
     @staticmethod
-    def size_varlong(x):
-        x = long(x)
+    def size_varlong(value):
+        value = long(value)
 
-        if x < 0:
-            x = (1 << 32) + x
+        if value < 0:
+            value = (1 << 32) + value
 
         size = 1
-        while x & ~0x7f:
+        while value & ~0x7f:
             size += 1
-            x >>= 7
+            value >>= 7
 
         return size
 
     @staticmethod
-    def write_ushort(stream, x):
-        StreamIO.write(stream, struct.pack("!H", int(x)))
+    def write_ushort(stream, value):
+        StreamIO.write(stream, struct.pack("!H", int(value)))
 
     @staticmethod
     def read_ushort(stream):
         return struct.unpack("!H", StreamIO.read(stream, 2))[0]
 
     @staticmethod
-    def write_short(stream, x):
-        StreamIO.write(stream, struct.pack("!h", int(x)))
+    def write_short(stream, value):
+        StreamIO.write(stream, struct.pack("!h", int(value)))
 
     @staticmethod
     def read_short(stream):
@@ -158,56 +158,60 @@ class StreamIO(object):
         return struct.unpack("!h", raw)[0]
 
     @staticmethod
-    def write_int(stream, x):
-        StreamIO.write(stream, struct.pack("!i", int(x)))
+    def write_int(stream, value):
+        StreamIO.write(stream, struct.pack("!i", int(value)))
 
     @staticmethod
     def read_int(stream):
         return struct.unpack("!i", StreamIO.read(stream, 4))[0]
 
     @staticmethod
-    def write_long(stream, x):
-        StreamIO.write(stream, struct.pack("!q", long(x)))
+    def write_long(stream, value):
+        StreamIO.write(stream, struct.pack("!q", long(value)))
 
     @staticmethod
     def read_long(stream):
         return struct.unpack("!q", StreamIO.read(stream, 8))[0]
 
     @staticmethod
-    def write_ulong(stream, x):
-        StreamIO.write(stream, struct.pack("!Q", long(x)))
+    def write_ulong(stream, value):
+        StreamIO.write(stream, struct.pack("!Q", long(value)))
 
     @staticmethod
     def read_ulong(stream):
         return struct.unpack("!Q", StreamIO.read(stream, 8))[0]
 
     @staticmethod
-    def write_float(stream, x):
-        StreamIO.write(stream, struct.pack("!f", float(x)))
+    def write_float(stream, value):
+        StreamIO.write(stream, struct.pack("!f", float(value)))
 
     @staticmethod
     def read_float(stream):
         return struct.unpack("!f", StreamIO.read(stream, 4))[0]
 
     @staticmethod
-    def write_double(stream, x):
-        StreamIO.write(stream, struct.pack("!d", float(x)))
+    def write_double(stream, value):
+        StreamIO.write(stream, struct.pack("!d", float(value)))
 
     @staticmethod
     def read_double(stream):
         return struct.unpack("!d", StreamIO.read(stream, 8))[0]
 
     @staticmethod
-    def write_string(stream, x):
-        StreamIO.write_varint(stream, len(x))
-        StreamIO.write(stream, x)
+    def write_string(stream, value):
+        StreamIO.write_varint(stream, len(value))
+        StreamIO.write(stream, value)
 
     @staticmethod
     def read_string(stream):
         return StreamIO.read(stream, StreamIO.read_varint(stream))
 
     @staticmethod
-    def write_position(stream, x, y, z):
+    def write_position(stream, position):
+        x = position[0]
+        y = position[1]
+        z = position[2]
+
         StreamIO.write_ulong(stream, ((x & 0x3FFFFFF) << 38) | ((y & 0xFFF) << 26) | (z & 0x3FFFFFF))
 
     @staticmethod
@@ -227,11 +231,11 @@ class StreamIO(object):
         return stream.write(data)
 
     @staticmethod
-    def read(stream, n):
+    def read(stream, data_len):
         if isinstance(stream, socket._socketobject):
-            data = stream.recv(n)
-            while len(data) < n:
-                packet = stream.recv(n - len(data))
+            data = stream.recv(data_len)
+            while len(data) < data_len:
+                packet = stream.recv(data_len - len(data))
                 if not packet:
                     stream.close()
                     raise EOFError("Unexpected EOF while reading bytes")
@@ -240,8 +244,8 @@ class StreamIO(object):
 
             return data
 
-        data = stream.read(n)
-        if len(data) < n:
+        data = stream.read(data_len)
+        if len(data) < data_len:
             raise EOFError("Unexpected EOF while reading bytes")
 
         return data

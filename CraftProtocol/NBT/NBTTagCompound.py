@@ -20,22 +20,22 @@ class NBTTagCompound(NBTBase):
     def get(self):
         return self.__values
 
-    def __getitem__(self, k):
-        return self.__values.__getitem__(k)
+    def __getitem__(self, key):
+        return self.__values.__getitem__(key)
 
-    def __setitem__(self, k, v):
-        assert isinstance(v, NBTBase), "value must be NBTBase"
+    def __setitem__(self, key, value):
+        assert isinstance(value, NBTBase), "value must be NBTBase"
 
-        self.__values.__setitem__(k, v)
+        self.__values.__setitem__(key, value)
 
-    def __delitem__(self, k):
-        self.__values.__delitem__(k)
+    def __delitem__(self, key):
+        self.__values.__delitem__(key)
 
     def __iter__(self):
         return self.__values.__iter__()
 
-    def __contains__(self, k):
-        return self.__values.__contains__(k)
+    def __contains__(self, key):
+        return self.__values.__contains__(key)
 
     def __len__(self):
         return self.__values.__len__()
@@ -48,28 +48,26 @@ class NBTTagCompound(NBTBase):
 
     @staticmethod
     def write(stream, tag):
-        for i in tag.keys():
-            StreamIO.write_ubyte(stream, tag[i].__class__.TYPE_ID)
-            StreamIO.write_ushort(stream, len(i.encode("utf8")))
-            StreamIO.write(stream, i.encode("utf8"))
-            tag[i].__class__.write(stream, tag[i])
+        for key in tag.keys():
+            StreamIO.write_ubyte(stream, tag[key].__class__.TYPE_ID)
+            StreamIO.write_ushort(stream, len(key.encode("utf8")))
+            StreamIO.write(stream, key.encode("utf8"))
+            tag[key].__class__.write(stream, tag[key])
 
         StreamIO.write_ubyte(stream, NBTTagEnd.TYPE_ID)
 
     @staticmethod
     def read(stream):
         values = {}
-        entry_type_id = StreamIO.read_ubyte(stream)
 
+        entry_type_id = StreamIO.read_ubyte(stream)
         while entry_type_id != NBTTagEnd.TYPE_ID:
             entry_name_len = StreamIO.read_ushort(stream)
-            entry_name = u""
+            entry_name = ""
             if entry_name_len > 0:
                 entry_name = StreamIO.read(stream, entry_name_len).decode("utf8")
 
-            entry_type = NBTProvider.get_tag_class(entry_type_id)
-            values[entry_name] = entry_type.read(stream)
-
+            values[entry_name] = NBTProvider.get_tag_class(entry_type_id).read(stream)
             entry_type_id = StreamIO.read_ubyte(stream)
 
         return NBTTagCompound(values)

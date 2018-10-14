@@ -4,7 +4,7 @@ import re
 import sys
 
 """
-Convert Python source code with Java-style encapsulation
+Convert Python source code with Java-style getters/setters
 to Python-style properties.
 """
 
@@ -18,6 +18,7 @@ def main(argv):
 
     getter_regex = re.compile("^(\s*)?def (get|is)_([A-Za-z0-9_]+)\(self\):(.*)?")
     setter_regex = re.compile("^(\s*)?def set_([A-Za-z0-9_]+)\(self, ([A-Za-z0-9_]+)\):(.*)?")
+    # Fix also get/set methods called on objects
     get_regex = re.compile("^(.*)?([A-Za-z0-9_]+).(get|is)_([A-Za-z0-9_]+)\(\)(.*)?")
     set_regex = re.compile("^(.*)?([A-Za-z0-9_]+).set_([A-Za-z0-9_]+)\((.*)?\)(.*)?")
 

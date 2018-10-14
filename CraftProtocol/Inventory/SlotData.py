@@ -45,4 +45,4 @@ class SlotData(object):
         self.__tag = tag
 
     def has_tag(self):
-        return self.__tag is not None
+        return self.tag is not None

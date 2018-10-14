@@ -20,6 +20,4 @@ class NBTTagFloat(NBTBase):
 
     @staticmethod
     def read(stream):
-        value = StreamIO.read_float(stream)
-
-        return NBTTagFloat(value)
+        return NBTTagFloat(StreamIO.read_float(stream))

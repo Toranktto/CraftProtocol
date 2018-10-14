@@ -16,7 +16,7 @@ class NBTTagByte(NBTBase):
 
     @staticmethod
     def write(stream, tag):
-        StreamIO.write_byte(tag.get())
+        StreamIO.write_byte(stream, tag.get())
 
     @staticmethod
     def read(stream):

@@ -87,7 +87,7 @@ class PacketSerializer(object):
             data_size = StreamIO.read_varint(stream)
 
             if data_size == 0:
-                packet_size -= StreamIO.size_varint(0)
+                packet_size -= StreamIO.size_varint(data_size)
                 data = StreamIO.read(stream, packet_size)
             else:
                 data = StreamIO.read(stream, packet_size - StreamIO.size_varint(data_size))
@@ -107,7 +107,7 @@ class PacketSerializer(object):
             packet_direction = PacketDirection.CLIENTBOUND
 
         try:
-            packet_class = PacketProvider.get_packet_class(self.__protocol, self.__state, packet_direction, packet_id)
+            packet_class = PacketProvider.get_packet_class(self.protocol, self.state, packet_direction, packet_id)
         except KeyError:
             packet_class = BasePacket.__class__
 

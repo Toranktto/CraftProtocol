@@ -20,6 +20,4 @@ class NBTTagShort(NBTBase):
 
     @staticmethod
     def read(stream):
-        value = StreamIO.read_short(stream)
-
-        return NBTTagShort(value)
+        return NBTTagShort(StreamIO.read_short(stream))

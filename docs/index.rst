@@ -66,7 +66,7 @@ Creating in-memory NBT tags:
     +---------------------------+---------------------------+
 
     Remember that NBT Types with "Array" suffix can store only one NBT Type which is prefixed
-    and NBTTagList can store only one choosed by user (in constructor) NBT Type.
+    and NBTTagList can store only one selected by user (in constructor) NBT Type.
 
 To serialize NBT tag to stream (file-like or socket object):
 
@@ -88,7 +88,7 @@ or deserialize from stream:
     NBTSerializer does not support compression. If you want to handle compressed NBT tags, use
     appropriate module for this, for example ``gzip``.
 
-To convert NBT Value to Python Value:
+To convert NBTBase value to Python value:
 
 .. code-block:: python
 

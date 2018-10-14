@@ -36,14 +36,14 @@ class Inventory(object):
     def entity_id(self):
         return self.__entity_id
 
-    def __getitem__(self, i):
-        return self.__slots.__getitem__(i)
+    def __getitem__(self, index):
+        return self.__slots.__getitem__(index)
 
-    def __setitem__(self, i, o):
-        self.__slots.__setitem__(i, o)
+    def __setitem__(self, index, obj):
+        self.__slots.__setitem__(index, obj)
 
-    def __delitem__(self, i):
-        self.__slots.__setitem__(i, SlotData.empty())
+    def __delitem__(self, index):
+        self.__slots.__setitem__(index, SlotData.empty())
 
     def __len__(self):
         return self.__slots.__len__()

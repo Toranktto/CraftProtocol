@@ -6,6 +6,9 @@ import re
 class ChatSerializer(object):
     LEGACY_COLOR_CHAR = u"\u00A7"
     LEGACY_STRIP_COLOR_PATTERN = re.compile(LEGACY_COLOR_CHAR + "[0-9a-fk-or]")
+    COLOR_CODES = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+                   "a", "b", "c", "d", "e", "f",
+                   "k", "l", "m", "n", "o", "r"]
 
     @staticmethod
     def strip_colors(chat):
@@ -33,7 +36,7 @@ class ChatSerializer(object):
         translated = list(text)
 
         for i in range(len(text) - 1):
-            if text[i] == code and "0123456789abcdefklmnor".find(text[i + 1]) > -1:
+            if text[i] == code and text[i + 1] in ChatSerializer.COLOR_CODES:
                 translated[i] = ChatSerializer.LEGACY_COLOR_CHAR
                 translated[i + 1] = text[i + 1]
 

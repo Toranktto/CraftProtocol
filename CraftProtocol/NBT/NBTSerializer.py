@@ -16,16 +16,15 @@ class NBTSerializer(object):
             raise IOError("invalid magic number")
 
         name_len = StreamIO.read_ushort(stream)
-        name = u""
         if name_len > 0:
-            name = StreamIO.read(stream, name_len)
+            StreamIO.read(stream, name_len)
 
         return NBTTagCompound.read(stream)
 
     @staticmethod
     def write(stream, tag):
         if tag is None:
-            StreamIO.write_ubyte(0x00)
+            StreamIO.write_ubyte(stream, 0x00)
             return
 
         StreamIO.write_ubyte(stream, NBTTagCompound.TYPE_ID)

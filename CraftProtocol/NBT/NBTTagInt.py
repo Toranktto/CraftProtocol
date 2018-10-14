@@ -20,6 +20,4 @@ class NBTTagInt(NBTBase):
 
     @staticmethod
     def read(stream):
-        value = StreamIO.read_int(stream)
-
-        return NBTTagInt(value)
+        return NBTTagInt(StreamIO.read_int(stream))

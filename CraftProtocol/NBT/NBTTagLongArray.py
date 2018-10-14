@@ -18,42 +18,36 @@ class NBTTagLongArray(NBTBase):
     def get(self):
         return self.__values
 
-    def __getitem__(self, i):
-        return self.__values.__getitem__(i)
+    def __getitem__(self, index):
+        return self.__values.__getitem__(index)
 
-    def __setitem__(self, i, o):
-        self.__values.__setitem__(i, long(o))
+    def __setitem__(self, index, value):
+        self.__values.__setitem__(index, long(value))
 
-    def __delitem__(self, i):
-        self.__values.__delitem__(i)
+    def __delitem__(self, index):
+        self.__values.__delitem__(index)
 
     def __iter__(self):
         return self.__values.__iter__()
 
-    def __contains__(self, o):
-        return self.__values.__contains__(long(o))
+    def __contains__(self, value):
+        return self.__values.__contains__(long(value))
 
     def __len__(self):
         return self.__values.__len__()
 
-    def append(self, x):
-        self.__values.append(long(x))
+    def append(self, value):
+        self.__values.append(long(value))
 
-    def remove(self, x):
-        self.__values.remove(long(x))
+    def remove(self, value):
+        self.__values.remove(long(value))
 
     @staticmethod
     def write(stream, tag):
-        StreamIO.write_long(stream, len(tag.get()))
-        for i in tag.get():
-            StreamIO.write_long(stream, i)
+        StreamIO.write_long(stream, len(tag))
+        for value in tag:
+            StreamIO.write_long(stream, value)
 
     @staticmethod
     def read(stream):
-        values = []
-        len = StreamIO.read_long(stream)
-
-        for i in xrange(len):
-            values.append(StreamIO.read_long(stream))
-
-        return NBTTagLongArray(values)
+        return NBTTagLongArray([StreamIO.read_long(stream) for _ in xrange(StreamIO.read_long(stream))])
